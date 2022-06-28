@@ -1,0 +1,230 @@
+1) MAKE A CALL
+	PERMISSIONS
+	1] <uses-permission android:name="android.permission.CALL_PHONE" />  
+
+	public void callNumber(View view) {
+		String phoneno =
+		etphoneno.getText().toString();
+		Intent i = new Intent(Intent.ACTION_DIAL);
+		i.setData(Uri.parse("tel:+91"+phoneno));
+		startActivity(i);
+	}
+
+2) OPEN GOOGLE
+	public void openGoogle(View view) {
+	Intent i = new Intent(Intent.ACTION_VIEW);
+	i.setData(Uri.parse("https://www.google.com"));
+	startActivity(i);
+	}
+
+3) OPEN MAPS
+	public void openMaps(View view) {
+	Intent i = new Intent(Intent.ACTION_VIEW);
+	i.setData(Uri.parse("geo:19.8798042,75.3478223"));
+	startActivity(i);
+	}
+
+4) SEND SMS 
+	PERMISSIONS
+	1] <uses-permission android:name="android.permission.SEND_SMS" />
+
+	public void sendSMS(View view) {
+	String phoneno = etphoneno.getText().toString();
+	String sms = etmessage.getText().toString();
+
+	Intent i = new Intent(Intent.ACTION_VIEW);
+	i.setData(Uri.parse("smsto:+91"+phoneno));
+
+	i.putExtra("sms_body",""+sms);
+	i.setType("vnd.android-dir/mms-sms");
+	startActivity(i);
+	}
+  
+5) PLAY AUDIO FILES
+	1) Create folder raw in res (res/raw/audio.mp3)
+	public class MainActivity extends AppCompatActivity {
+	MediaPlayer mp;
+	@Override
+	protected void onCreate(Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		mp = MediaPlayer.create(MainActivity.this,R.raw.twochainz);
+	}
+	public void play(View view) {
+		mp.start();
+	}
+	public void stop(View view) {
+		mp.stop();
+		mp = MediaPlayer.create(MainActivity.this,R.raw.twochainz);
+	}
+	public void pause(View view) {
+		mp.pause();
+	}
+}
+
+6) PLAY VIDEO
+	(res/raw/video.mp4)
+	<FrameLayout> 
+		<VideoView>
+		</VideoView>
+	</FrameLayout>
+	
+	public class MainActivity extends AppCompatActivity{
+		VideoView vv;
+		Button video;
+		@Override
+		protected void onCreate(Bundle savedInstanceState){
+			super.onCreate(savedInstanceState);
+			setContentView(R.layout.activity_main);
+			vv = findViewById(R.id.videoView);
+			video = findeViewById(R.id.pv);
+			video.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View view){
+					String path = "android.resource://" + getPackageName() + "/" + R.raw.nd;
+					Uri url = Uri.parse(path);
+					vv.setVideoURI(url);
+					vv.start();
+				}
+			});
+		}
+	}
+
+7) CAPTURE IMAGE
+	PERMISSIONS
+	1] <uses-feature android:name="android.hardware.camera" android:required="true" />
+	2] <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	3] <uses-permission android:name="android.permission.CAMERA" />
+	4] <uses-feature android:name="android.hardware.camera.autofocus" />
+
+	<ImageView>
+	</ImageView>
+	<Button />
+
+	public void captureImage(View view) {
+		Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		startActivityForResult(i,0);
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode,int resultCode, @Nullable Intent data) {
+			super.onActivityResult(requestCode,
+			resultCode, data);
+			Bitmap b = (Bitmap)
+			data.getExtras().get("data");	
+			img.setImageBitmap(b);
+		}
+	}
+
+8) TEXT TO SPEECH
+	public class MainActivity extends AppCompatActivity {
+  
+    EditText Text;
+    Button btnText;
+    TextToSpeech textToSpeech;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+  
+        Text = findViewById(R.id.Text);
+        btnText = findViewById(R.id.btnText);
+  
+        // create an object textToSpeech and adding features into it
+        textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int i) {
+  
+                // if No error is found then only it will run
+                if(i!=TextToSpeech.ERROR){ 
+                    // To Choose language of speech
+                    textToSpeech.setLanguage(Locale.UK); 
+                }
+            }
+        });
+  
+        // Adding OnClickListener
+        btnText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                textToSpeech.speak(Text.getText().toString(),TextToSpeech.QUEUE_FLUSH,null);
+            }
+        });
+  
+    }
+}
+
+9) SIGN IN / SIGN UP
+	
+	HOME ACTIVITY
+	
+	public void clickLogin(View view)
+	{
+		String username, password;
+		username = [textviewObj].getText().toString();
+		password = [textViewObj].getText().toString();
+		
+		if(username.equals("Shailesh") && password.equals("Shailesh")
+		{
+			Intent i = new Intent(MainActivity.this,Login.class);
+			i.putExtra("username",username);
+			i.putExtra("password",password);
+			startActivity(i);
+		}else{
+			Toast t = Toast.makeText(MainActivity.this,"Wrong username/password",Toast.LENGTH_SHORT);
+			t.show();
+		}
+	}
+
+	LOGIN ACTIVITY
+	
+	protected void onCreate(Bundle savedInstanceState){
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main2);
+		
+		Bundle b = getIntent().getExtras();
+		String s1 = b.getString("username");
+		String s2 = b.getString("password");
+		Toast t = Toast.makeText(MainActivity2.this,"Successfully Logged In", toast.LENGTH_SHORT);
+		t.show();
+	}
+
+10) CHANGE BACKGROUND COLOUR OF SCREEN ON BUTTON
+	
+	<RelativeLayout>
+		<LinearLayout>
+			<Button />
+			<Button />
+		</LinearLayout>
+	</RelativeLayout>
+	
+	COLORS.XML
+	<color name="cool">#188FCF</color>
+	<color name="warm">#F1D416</color>
+	
+	MAIN ACTIVITY
+	
+	Button button1, button2;
+        final RelativeLayout relativeLayout;
+
+	button1 = findViewById(R.id.btVar1);
+	button2 = findViewById(R.id.btVar2);
+	relativeLayout = findViewById(R.id.rlVar1);
+
+	button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // set the color to relative layout
+                relativeLayout.setBackgroundResource(R.color.cool);
+            }
+        });
+         
+        // onClick function for button 2
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // set the color to relative layout
+                relativeLayout.setBackgroundResource(R.color.warm);
+            }
+        });
