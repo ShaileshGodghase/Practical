@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+   vector< vector<int> > arr = {
+      {25,24,23,22,21},
+      {10,11,12,13,20},
+      {9,8,7,14,19},
+      {2,3,6,15,18},
+      {1,4,5,16,17}
+   };
+
+   while(true)
+   {
+      int n; cin>>n;
+      if(n==0) break;
+
+      int row = arr.size(), col = arr[0].size();
+      int a1 = 0, a2 = 0;
+      for(int i=row-1;i>=0;i--)
+      {
+         a1++;
+         bool flag = false;
+         for(int j=0;j<col;j++)
+         {
+            a2++;
+            if(arr[i][j] == n) 
+            {
+               flag = true;
+               cout<<a2<<" "<<a1<<endl; break;
+            }
+         }
+         if(flag) break;
+         a2 = 0;
+      }
+   }
+   return 0;
+}

@@ -1,0 +1,23 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+   while(true)
+   {
+      int n; cin>>n;
+
+      if(n == 0) break;
+
+      long long x = sqrt(n);
+      if(x * x == n)
+      {
+         cout<<"yes"<<endl;
+      }
+      else
+      {
+         cout<<"no"<<endl;
+      }
+   }
+   return 0;
+}

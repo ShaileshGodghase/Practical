@@ -1,0 +1,44 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+
+int main()
+{
+    vector<long long> s2vec = {0}, r2vec = {0} , s3vec = {0}, 
+    r3vec = {0}, s4vec = {0}, r4vec = {0};
+    
+    for(int i=1; i<=100; i++)
+    {
+        long long s2 = s2vec.back() + (i*i);
+        long long s3 = s2vec.back() + (i*i*i);
+        long long s4 = s2vec.back() + (i*i*i*i);
+        
+        
+        // pow((i*(i+1))/2, 2) - s2;
+        
+        long long r2 = pow((i*(i+1))/2, 2) - s2;
+        long long r3 = pow((i*(i+1))/2, 3) - s3;
+        long long r4 = pow((i*(i+1))/2, 4) - s4;
+        
+        s2vec.push_back(s2);
+        r2vec.push_back(r2);
+        s3vec.push_back(s3);
+        r3vec.push_back(r3);
+        s4vec.push_back(s4);
+        r4vec.push_back(r4);
+        
+    }
+    
+    int n;
+    cin>>n;
+    
+    cout<<s2vec[n]<<" ";
+    cout<<r2vec[n]<<" ";
+    cout<<s3vec[n]<<" ";
+    cout<<r3vec[n]<<" ";
+    cout<<s4vec[n]<<" ";
+    cout<<r4vec[n]<<" ";
+    
+    
+    
+}

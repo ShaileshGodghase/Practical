@@ -1,0 +1,58 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define N 4
+
+int getInvCount(int arr[])
+{
+   int inv_count = 0;
+   for (int i = 0; i < N * N - 1; i++)
+   {
+      for (int j = i + 1; j < N * N; j++)
+      {
+         if (arr[j] && arr[i] && arr[i] > arr[j])
+            inv_count++;
+      }
+   }
+   return inv_count;
+}
+
+int findXPosition(int puzzle[N][N])
+{
+   for (int i = N - 1; i >= 0; i--)
+      for (int j = N - 1; j >= 0; j--)
+         if (puzzle[i][j] == 0)
+            return N - i;
+}
+
+bool isSolvable(int puzzle[N][N])
+{
+   int invCount = getInvCount((int*)puzzle);
+
+   if (N & 1)
+      return !(invCount & 1);
+
+   else
+   {
+      int pos = findXPosition(puzzle);
+      if (pos & 1)
+         return !(invCount & 1);
+      else
+         return invCount & 1;
+   }
+}
+
+int main()
+{
+
+   int puzzle[4][4] =
+   {
+      {2, 3, 4, 0},
+      {1, 5, 7, 8},
+      {9, 6, 10, 12},
+      {13, 14, 11, 15},
+   };
+
+   isSolvable(puzzle)? cout << "Solvable":
+                  cout << "Not Solvable";
+   return 0;
+}
